@@ -5,6 +5,12 @@ const login_form = document.getElementById("login-form");
 const register_form = document.getElementById("register-form");
 console.log(login_form);
 console.log(register_form);
+const theElement1 = document.getElementById('chatbox1');
+const theElement2 = document.getElementById('chatbox2');
+const scrollToBottom = (node) => {
+    node.scrollTop = 0;
+}
+
 
 
 //chat app scroll bar
@@ -122,9 +128,11 @@ const createMessageElement1 = (messageData) => {
 
                 if (suggestions.length > 1) {
                     document.getElementsByClassName("suggestions")[0].style.display = "block"
-                    document.getElementsByClassName("suggestions")[0].innerHTML = "<p> Suggestions: </p>"
+                    document.getElementsByClassName("suggestions")[0].innerHTML = "<p class='p1'> Talk About: </p>"
+
                     for (let i = 1; i < suggestions.length; i++) {
                         const p = document.createElement("p")
+                        p.classList.add("p2")
                         p.innerText = suggestions[i]
                         document.getElementsByClassName("suggestions")[0].appendChild(p)
                     }
@@ -133,9 +141,11 @@ const createMessageElement1 = (messageData) => {
                 } else {
                     document.getElementsByClassName("suggestions")[0].style.display = "block"
                     const p = document.createElement("p")
+                    p.classList.add("p2")
                     p.innerText = "Other person is normal"
                     document.getElementsByClassName("suggestions")[0].innerText = ""
                     document.getElementsByClassName("suggestions")[0].appendChild(p)
+
                 }
             })
     }
@@ -194,7 +204,8 @@ const createMessageElement1 = (messageData) => {
             // document.getElementsByClassName("chat-body")[1].appendChild(messageBox)
 
     }
-
+    scrollToBottom(theElement1)
+    scrollToBottom(theElement2)
 }
 
 const createMessageElement2 = (messageData) => {
@@ -222,9 +233,10 @@ const createMessageElement2 = (messageData) => {
 
                 if (suggestions.length > 1) {
                     document.getElementsByClassName("suggestions")[1].style.display = "block"
-                    document.getElementsByClassName("suggestions")[1].innerHTML = "<p> Suggestions: </p>"
+                    document.getElementsByClassName("suggestions")[1].innerHTML = "<p class='p1'> Talk About: </p>"
                     for (let i = 1; i < suggestions.length; i++) {
                         const p = document.createElement("p")
+                        p.classList.add("p2")
                         p.innerText = suggestions[i]
                         document.getElementsByClassName("suggestions")[1].appendChild(p)
                     }
@@ -235,6 +247,7 @@ const createMessageElement2 = (messageData) => {
                     document.getElementsByClassName("suggestions")[1].innerText = ""
                     const p = document.createElement("p")
                     p.innerText = "Other person is Normal"
+                    p.classList.add("p2")
                     document.getElementsByClassName("suggestions")[1].appendChild(p)
 
                 }
@@ -293,7 +306,8 @@ const createMessageElement2 = (messageData) => {
         document.getElementsByClassName("chat-body")[1].appendChild(messageBox)
 
     }
-
+    scrollToBottom(theElement1)
+    scrollToBottom(theElement2)
 }
 
 const setMessages = () => {

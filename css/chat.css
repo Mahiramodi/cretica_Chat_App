@@ -3,15 +3,50 @@ body {
     background: #eee;
 }
 
+::-webkit-scrollbar {
+    display: none !important;
+}
+
 #heading {
     text-align: center;
-    padding: 1%;
+    padding: 1% 2%;
+    font-family: 'Orelega One', cursive;
+    color: #8d9bd8;
+    font-size: 5rem;
+}
+
+.user .avtar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.p1 {
+    font-size: 22px;
+    font-family: 'Orelega One', cursive;
+}
+
+.p2 {
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .suggestions {
     background: #e4e1ff;
     padding: 2% 3%;
     display: none;
+    border-radius: 10px;
+}
+
+.chat-body .user {
+    background: #c7c9d3;
+    ;
+    width: fit-content;
+    padding: 1%;
+    border-bottom-right-radius: 11px;
+    color: white;
+    margin-bottom: 30px;
 }
 
 .row.row-broken {
@@ -35,7 +70,7 @@ body {
 
 .chat-body h6 {
     font-size: 20px;
-    margin: 0 0 20px;
+    margin-top: 8px;
 }
 
 .chat-body .answer.left {
@@ -236,4 +271,10 @@ body {
 .chat input {
     -webkit-appearance: none;
     border-radius: 0;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 100%;
+    }
 }
