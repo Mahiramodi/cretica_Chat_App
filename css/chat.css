@@ -8,6 +8,12 @@ body {
     padding: 1%;
 }
 
+.suggestions {
+    background: #e4e1ff;
+    padding: 2% 3%;
+    display: none;
+}
+
 .row.row-broken {
     padding-bottom: 0;
 }

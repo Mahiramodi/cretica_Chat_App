@@ -71,8 +71,77 @@ if (register_form) {
 
 let messagesList = []
 
+
+
+const fetchURL = async(query, variable) => {
+    console.log(`${variable} ${query}`);
+    return await fetch("https://creatica-server.herokuapp.com/graphql", {
+        method: "POST",
+        // mode: 'cors',
+        // credentials: 'include',
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Access-Control-Allow-Credentials": true,
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+
+        },
+        body: JSON.stringify({
+            query: query,
+            variable: variable
+
+        }),
+    }).then((res) => { return res.json() })
+
+};
+
+
 const createMessageElement1 = (messageData) => {
     console.log(messageData)
+    console.log(messagesList[messagesList.length - 1].message)
+    let lastMessage = ""
+    for (let i = messagesList.length - 1; i >= 0; i--) {
+        if (messagesList[i].user_email == "ballu@test.com") {
+            lastMessage = messagesList[i].message
+            break
+        }
+
+    }
+    if (lastMessage.length > 0) {
+        fetchURL(
+                `{
+         analysis(message:"${lastMessage}")
+      }`)
+            .then((res) => {
+                // console.log("chal gayoo")
+                console.log(res.data.analysis)
+                let suggestions = res.data.analysis.split("@")
+                console.log(suggestions)
+
+                if (suggestions.length > 1) {
+                    document.getElementsByClassName("suggestions")[0].style.display = "block"
+                    document.getElementsByClassName("suggestions")[0].innerHTML = "<p> Suggestions: </p>"
+                    for (let i = 1; i < suggestions.length; i++) {
+                        const p = document.createElement("p")
+                        p.innerText = suggestions[i]
+                        document.getElementsByClassName("suggestions")[0].appendChild(p)
+                    }
+
+
+                } else {
+                    document.getElementsByClassName("suggestions")[0].style.display = "block"
+                    const p = document.createElement("p")
+                    p.innerText = "Other person is normal"
+                    document.getElementsByClassName("suggestions")[0].innerText = ""
+                    document.getElementsByClassName("suggestions")[0].appendChild(p)
+                }
+            })
+    }
+
+
+
     const messageBox = document.createElement('div');
     messageBox.classList.add('answer');
 
@@ -130,6 +199,48 @@ const createMessageElement1 = (messageData) => {
 
 const createMessageElement2 = (messageData) => {
     console.log(messageData)
+
+    let lastMessage = ""
+    for (let i = messagesList.length - 1; i >= 0; i--) {
+        if (messagesList[i].user_email == "test123@test.com") {
+            lastMessage = messagesList[i].message
+            break
+        }
+
+    }
+
+    if (lastMessage.length > 0) {
+        fetchURL(
+                `{
+         analysis(message:"${lastMessage}")
+      }`)
+            .then((res) => {
+                // console.log("chal gayoo")
+                console.log(res.data.analysis)
+                let suggestions = res.data.analysis.split("@")
+                console.log(suggestions)
+
+                if (suggestions.length > 1) {
+                    document.getElementsByClassName("suggestions")[1].style.display = "block"
+                    document.getElementsByClassName("suggestions")[1].innerHTML = "<p> Suggestions: </p>"
+                    for (let i = 1; i < suggestions.length; i++) {
+                        const p = document.createElement("p")
+                        p.innerText = suggestions[i]
+                        document.getElementsByClassName("suggestions")[1].appendChild(p)
+                    }
+
+
+                } else {
+                    document.getElementsByClassName("suggestions")[1].style.display = "block"
+                    document.getElementsByClassName("suggestions")[1].innerText = ""
+                    const p = document.createElement("p")
+                    p.innerText = "Other person is Normal"
+                    document.getElementsByClassName("suggestions")[1].appendChild(p)
+
+                }
+            })
+    }
+
     const messageBox = document.createElement('div');
     messageBox.classList.add('answer');
 
@@ -195,6 +306,7 @@ const setMessages = () => {
         createMessageElement1(data)
         createMessageElement2(data)
     })
+
 }
 
 setMessages();
